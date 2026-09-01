@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Sklep">
+  <rect x="25" y="38" width="78" height="73" rx="14" fill="#fff6fb" stroke="#070606" stroke-width="6"/>
+  <path d="M44 45V34c0-12 8-21 20-21s20 9 20 21v11" fill="none" stroke="#070606" stroke-linecap="round" stroke-width="7"/>
+  <circle cx="47" cy="57" r="5" fill="#ff575c"/>
+  <circle cx="81" cy="57" r="5" fill="#ff575c"/>
+  <path d="M41 80c10 10 36 10 46 0" fill="none" stroke="#d382bf" stroke-linecap="round" stroke-width="7"/>
+</svg>

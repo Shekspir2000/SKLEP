@@ -1,0 +1,12 @@
+.DS_Store
+api/config.php
+*.log
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+data/*.sqlite
+data/*.sqlite-shm
+data/*.sqlite-wal
+tmp/
+vendor/
+node_modules/

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zamówienie ze sklepu | Ariańska Selection</title>
+    <meta name="description" content="Dane zamówienia, dostawa i płatność za produkt Ariańska Selection.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css?v=81">
+  </head>
+  <body class="commerce-page checkout-page">
+    <main class="checkout-shell">
+      <header class="checkout-header">
+        <a class="brand" href="/" aria-label="Ariańska Selection">
+          <img src="assets/logo-menu.png" alt="Ariańska Selection">
+        </a>
+        <div>
+          <p class="section-kicker">Nowości - sklep</p>
+          <h1>Kup wybraną sztukę</h1>
+        </div>
+      </header>
+
+      <form class="checkout-grid" method="post" action="/api/shop-order" data-shop-checkout>
+        <input type="hidden" name="product_id" data-product-id>
+        <input type="hidden" name="delivery_price" data-delivery-price value="0">
+
+        <section class="checkout-form-panel">
+          <p class="section-kicker">Dane zamówienia</p>
+          <h2>Kontakt i dostawa</h2>
+
+          <div class="form-grid">
+            <label>
+              Imię i nazwisko *
+              <input name="name" autocomplete="name" required>
+            </label>
+            <label>
+              Telefon *
+              <input name="phone" autocomplete="tel" required>
+            </label>
+            <label>
+              Adres e-mail *
+              <input type="email" name="email" autocomplete="email" required>
+            </label>
+          </div>
+
+          <fieldset class="delivery-options">
+            <legend>Dostawa</legend>
+            <label><input type="radio" name="delivery_method" value="pickup" data-price="0" checked> Odbiór osobisty - 0 zł</label>
+            <label><input type="radio" name="delivery_method" value="parcel_locker" data-price="17"> Paczkomat InPost przez Furgonetkę - 17 zł</label>
+            <label><input type="radio" name="delivery_method" value="courier" data-price="22"> Kurier przez Furgonetkę - 22 zł</label>
+          </fieldset>
+
+          <div class="form-grid delivery-address" data-delivery-address>
+            <label>
+              Adres / paczkomat
+              <input name="delivery_address" placeholder="np. KRA01M albo ulica, kod, miasto">
+            </label>
+            <label>
+              Uwagi do dostawy
+              <textarea name="delivery_note" rows="4" placeholder="Dane do etykiety, preferencje, informacja dla dziewczyn"></textarea>
+            </label>
+          </div>
+        </section>
+
+        <aside class="order-panel">
+          <p class="section-kicker">Podsumowanie</p>
+          <h2>Jedna sztuka</h2>
+
+          <div class="order-table">
+            <div class="order-row order-head"><span>Produkt</span><span>Kwota</span></div>
+            <div class="order-row">
+              <div>
+                <strong data-product-title>Produkt</strong>
+                <small data-product-meta>Rozmiar</small>
+              </div>
+              <span data-product-price>0 zł</span>
+            </div>
+            <div class="order-row">
+              <span>Dostawa</span>
+              <span data-delivery-label>0 zł</span>
+            </div>
+            <div class="order-row">
+              <span>Łącznie</span>
+              <strong data-order-total>0 zł</strong>
+            </div>
+          </div>
+
+          <div class="payment-box">
+            <strong>Płatność Przelewy24</strong>
+            <span>Po wdrożeniu na LH zamówienie utworzy blokadę produktu i przekieruje do płatności.</span>
+          </div>
+
+          <label class="consent-row checkout-consent">
+            <input type="checkbox" name="consent" value="yes" required>
+            <span>
+              Akceptuję <a href="/regulamin-sklepu">regulamin sklepu</a> oraz
+              <a href="/polityka-prywatnosci">politykę prywatności</a>.
+            </span>
+          </label>
+
+          <button class="button button-primary" type="submit">Kupuję i płacę</button>
+        </aside>
+      </form>
+    </main>
+
+    <script src="assets/shop-products.js?v=1"></script>
+    <script>
+      (() => {
+        const products = window.ARIA_SHOP_PRODUCTS || [];
+        const params = new URLSearchParams(window.location.search);
+        const product = products.find((item) => item.id === params.get("id")) || products.find((item) => item.status === "available") || products[0];
+        const format = (value) => `${Number(value).toLocaleString("pl-PL")} zł`;
+        const address = document.querySelector("[data-delivery-address]");
+        const deliveryPrice = document.querySelector("[data-delivery-price]");
+
+        if (!product) return;
+        document.querySelector("[data-product-id]").value = product.id;
+        document.querySelector("[data-product-title]").textContent = product.name;
+        document.querySelector("[data-product-meta]").textContent = `Rozmiar: ${product.size}`;
+        document.querySelector("[data-product-price]").textContent = format(product.price);
+
+        const update = () => {
+          const selected = document.querySelector("input[name='delivery_method']:checked");
+          const delivery = Number(selected.dataset.price || 0);
+          deliveryPrice.value = String(delivery);
+          address.hidden = selected.value === "pickup";
+          document.querySelector("[data-delivery-label]").textContent = format(delivery);
+          document.querySelector("[data-order-total]").textContent = format(Number(product.price) + delivery);
+        };
+
+        document.querySelectorAll("input[name='delivery_method']").forEach((input) => input.addEventListener("change", update));
+        update();
+      })();
+    </script>
+    <script src="assets/typography.js?v=1"></script>
+  </body>
+</html>

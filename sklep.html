@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nowości - sklep | Ariańska Selection</title>
+    <meta
+      name="description"
+      content="Nowości Ariańska Selection: pojedyncze sztuki z drugiego obiegu, wybrane z czułością do mody i detalu."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css?v=81">
+  </head>
+  <body class="commerce-page shop-page">
+    <header class="commerce-topbar">
+      <a class="brand" href="/" aria-label="Ariańska Selection">
+        <img src="assets/logo-menu.png" alt="Ariańska Selection">
+      </a>
+      <div class="site-menu" aria-label="Menu strony">
+        <a href="/warsztaty">Warsztaty</a>
+        <a href="/wynajem">Wynajem przestrzeni</a>
+        <a class="is-active" href="/sklep">Nowości - sklep</a>
+      </div>
+    </header>
+
+    <main class="commerce-shell shop-shell">
+      <section class="shop-hero">
+        <div>
+          <p class="section-kicker">Nowości - sklep</p>
+          <h1>Pojedyncze sztuki z selekcji Ariańska</h1>
+          <p>
+            Ubrania i dodatki z drugiego obiegu, które trafiają tu w małych dropach.
+            Kupujesz jedną konkretną rzecz, a po płatności znika z dostępnych.
+          </p>
+        </div>
+        <aside>
+          <strong>Logistyka 1.0</strong>
+          <span>Odbiór osobisty, paczkomat albo kurier. Etykiety na start ręcznie przez Furgonetkę.</span>
+        </aside>
+      </section>
+
+      <section class="shop-toolbar" aria-label="Filtry sklepu">
+        <button class="is-active" type="button" data-filter="all">Wszystko</button>
+        <button type="button" data-filter="available">Dostępne</button>
+        <button type="button" data-filter="reserved">Zarezerwowane</button>
+        <button type="button" data-filter="sold">Sprzedane</button>
+      </section>
+
+      <section class="shop-grid" data-products-grid aria-label="Produkty"></section>
+    </main>
+
+    <script src="assets/shop-products.js?v=1"></script>
+    <script>
+      (() => {
+        const products = window.ARIA_SHOP_PRODUCTS || [];
+        const grid = document.querySelector("[data-products-grid]");
+        const statusLabel = { available: "Dostępne", reserved: "Zarezerwowane", sold: "Sprzedane" };
+        const price = (value) => `${Number(value).toLocaleString("pl-PL")} zł`;
+
+        const render = (filter = "all") => {
+          const visible = products.filter((product) => filter === "all" || product.status === filter);
+          grid.innerHTML = visible.map((product) => `
+            <article class="shop-card status-${product.status}">
+              <a class="shop-card-media" href="produkt.html?id=${encodeURIComponent(product.id)}">
+                <img src="${product.cover}" alt="${product.name}">
+                <span>${statusLabel[product.status] || product.status}</span>
+              </a>
+              <div class="shop-card-body">
+                <p>${product.category} · rozmiar ${product.size}</p>
+                <h2>${product.name}</h2>
+                <div>
+                  <strong>${price(product.price)}</strong>
+                  <a class="shop-card-link" href="produkt.html?id=${encodeURIComponent(product.id)}">Zobacz</a>
+                </div>
+              </div>
+            </article>
+          `).join("");
+          if (!visible.length) {
+            grid.innerHTML = '<p class="shop-empty">Nie ma produktów w tej kategorii.</p>';
+          }
+        };
+
+        document.querySelectorAll("[data-filter]").forEach((button) => {
+          button.addEventListener("click", () => {
+            document.querySelectorAll("[data-filter]").forEach((item) => item.classList.remove("is-active"));
+            button.classList.add("is-active");
+            render(button.dataset.filter);
+          });
+        });
+
+        render();
+      })();
+    </script>
+    <script src="assets/typography.js?v=1"></script>
+  </body>
+</html>
