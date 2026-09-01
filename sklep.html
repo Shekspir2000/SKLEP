@@ -55,9 +55,10 @@
     </main>
 
     <script src="assets/shop-products.js?v=1"></script>
+    <script src="assets/shop-storage.js?v=1"></script>
     <script>
       (() => {
-        const products = window.ARIA_SHOP_PRODUCTS || [];
+        const products = window.ARIA_SHOP_STORAGE?.allProducts() || window.ARIA_SHOP_PRODUCTS || [];
         const grid = document.querySelector("[data-products-grid]");
         const statusLabel = { available: "Dostępne", reserved: "Zarezerwowane", sold: "Sprzedane" };
         const price = (value) => `${Number(value).toLocaleString("pl-PL")} zł`;

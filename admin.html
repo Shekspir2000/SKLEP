@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Panel testowy sklepu | Ariańska Selection</title>
+    <meta
+      name="description"
+      content="Testowy panel dodawania produktów do sklepu Ariańska Selection."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css?v=81">
+    <style>
+      .test-admin-note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .test-admin-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+        gap: 22px;
+        align-items: start;
+      }
+
+      .test-admin-panel {
+        border: 1px solid rgba(47, 35, 32, .12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, .76);
+        box-shadow: 0 16px 40px rgba(47, 35, 32, .08);
+      }
+
+      .test-admin-panel h2 {
+        margin: 0 0 18px;
+        font-size: clamp(1.55rem, 3vw, 2.2rem);
+      }
+
+      .test-admin-panel .form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .test-admin-panel label.is-wide {
+        grid-column: 1 / -1;
+      }
+
+      .test-admin-form {
+        padding: clamp(22px, 4vw, 34px);
+      }
+
+      .test-admin-list {
+        display: grid;
+        gap: 12px;
+        padding: clamp(22px, 4vw, 34px);
+      }
+
+      .test-admin-preview {
+        display: grid;
+        gap: 12px;
+      }
+
+      .test-admin-preview img {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        border-radius: 8px;
+        background: var(--rose-pale);
+      }
+
+      .test-product-row {
+        display: grid;
+        grid-template-columns: 72px minmax(0, 1fr);
+        gap: 12px;
+        align-items: center;
+        padding: 12px;
+        border: 1px solid rgba(47, 35, 32, .12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, .74);
+      }
+
+      .test-product-row img {
+        width: 72px;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .test-product-row h3 {
+        margin: 0;
+        font-size: 1rem;
+      }
+
+      .test-product-row p {
+        margin: 4px 0 10px;
+        color: var(--muted);
+        font-size: .9rem;
+      }
+
+      .test-product-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .test-product-actions a,
+      .test-product-actions button {
+        min-height: 34px;
+        padding: 0 12px;
+        border: 1px solid rgba(47, 35, 32, .14);
+        border-radius: 999px;
+        color: var(--ink);
+        background: #fff;
+        font-size: .82rem;
+        font-weight: 800;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .test-product-actions button {
+        cursor: pointer;
+      }
+
+      .test-admin-message {
+        display: none;
+        margin: 14px 0 0;
+        padding: 12px 14px;
+        border-radius: 8px;
+        color: var(--ink);
+        background: var(--rose-pale);
+        font-weight: 800;
+      }
+
+      .test-admin-message.is-visible {
+        display: block;
+      }
+
+      @media (max-width: 820px) {
+        .test-admin-layout,
+        .test-admin-panel .form-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body class="commerce-page shop-page">
+    <header class="commerce-topbar">
+      <a class="brand" href="/" aria-label="Ariańska Selection">
+        <img src="assets/logo-menu.png" alt="Ariańska Selection">
+      </a>
+      <div class="site-menu" aria-label="Menu sklepu">
+        <a href="/sklep">Sklep</a>
+        <a class="is-active" href="/admin">Panel testowy</a>
+      </div>
+    </header>
+
+    <main class="commerce-shell shop-shell">
+      <section class="shop-hero">
+        <div>
+          <p class="section-kicker">Panel testowy</p>
+          <h1>Dodaj produkt do sklepu</h1>
+          <p>
+            Ten panel służy do sprawdzenia procesu dodawania produktu na Vercelu.
+            Produkty zapisują się tylko w tej przeglądarce.
+          </p>
+        </div>
+        <aside>
+          <strong>Tryb testowy</strong>
+          <span>Bez LH, bez bazy danych i bez prawdziwych płatności. To spokojny podgląd procesu.</span>
+        </aside>
+      </section>
+
+      <section class="test-admin-layout">
+        <section class="test-admin-panel test-admin-form">
+          <p class="section-kicker">Nowa rzecz</p>
+          <h2>Dane produktu</h2>
+
+          <form class="form-grid" data-shop-admin-form>
+            <label>
+              Nazwa *
+              <input name="name" placeholder="np. Marynarka vintage rose" required>
+            </label>
+            <label>
+              ID / slug
+              <input name="id" placeholder="utworzy się automatycznie">
+            </label>
+            <label>
+              Kategoria
+              <input name="category" placeholder="np. Marynarki">
+            </label>
+            <label>
+              Rozmiar *
+              <input name="size" placeholder="np. M" required>
+            </label>
+            <label>
+              Cena w zł *
+              <input type="number" name="price" min="1" step="1" placeholder="189" required>
+            </label>
+            <label>
+              Status
+              <select name="status">
+                <option value="available">Dostępne</option>
+                <option value="reserved">Zarezerwowane</option>
+                <option value="sold">Sprzedane</option>
+              </select>
+            </label>
+            <label class="is-wide">
+              Zdjęcie główne
+              <input type="file" name="cover" accept="image/*">
+            </label>
+            <label class="is-wide">
+              Opis
+              <textarea name="description" rows="4" placeholder="Krótki opis produktu, klimat, stan i najważniejsze informacje."></textarea>
+            </label>
+            <label>
+              Wymiary
+              <input name="dimensions" placeholder="np. szer. 52 cm, dł. 72 cm">
+            </label>
+            <label>
+              Materiał
+              <input name="material" placeholder="np. wełna z domieszką">
+            </label>
+            <button class="button button-primary" type="submit">Zapisz produkt</button>
+          </form>
+          <p class="test-admin-message" data-admin-message></p>
+        </section>
+
+        <aside class="test-admin-panel test-admin-form test-admin-preview">
+          <p class="section-kicker">Podgląd</p>
+          <h2>Zdjęcie produktu</h2>
+          <img src="assets/gallery-1.jpeg" alt="" data-image-preview>
+          <p class="test-admin-note">
+            Po zapisaniu kliknij „Zobacz w sklepie”. Produkt pojawi się tylko u Ciebie,
+            bo ta wersja zapisuje dane w przeglądarce.
+          </p>
+        </aside>
+      </section>
+
+      <section class="test-admin-panel test-admin-list">
+        <div class="admin-section-heading">
+          <p class="section-kicker">Produkty testowe</p>
+          <h2>Dodane w tej przeglądarce</h2>
+        </div>
+        <div data-custom-products-list></div>
+      </section>
+    </main>
+
+    <script src="assets/shop-products.js?v=1"></script>
+    <script src="assets/shop-storage.js?v=1"></script>
+    <script>
+      (() => {
+        const form = document.querySelector("[data-shop-admin-form]");
+        const list = document.querySelector("[data-custom-products-list]");
+        const imageInput = form.elements.cover;
+        const preview = document.querySelector("[data-image-preview]");
+        const message = document.querySelector("[data-admin-message]");
+
+        const escapeHtml = (value) => String(value || "").replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#039;"
+        })[char]);
+
+        const price = (value) => `${Number(value || 0).toLocaleString("pl-PL")} zł`;
+
+        const showMessage = (text) => {
+          message.textContent = text;
+          message.classList.add("is-visible");
+        };
+
+        const renderList = () => {
+          const products = window.ARIA_SHOP_STORAGE.customProducts();
+          if (!products.length) {
+            list.innerHTML = '<p class="test-admin-note">Nie ma jeszcze produktów dodanych testowo.</p>';
+            return;
+          }
+
+          list.innerHTML = products.map((product) => `
+            <article class="test-product-row">
+              <img src="${escapeHtml(product.cover)}" alt="">
+              <div>
+                <h3>${escapeHtml(product.name)}</h3>
+                <p>${escapeHtml(product.category)} · ${escapeHtml(product.size)} · ${price(product.price)}</p>
+                <div class="test-product-actions">
+                  <a href="produkt.html?id=${encodeURIComponent(product.id)}">Karta produktu</a>
+                  <a href="sklep-zamowienie.html?id=${encodeURIComponent(product.id)}">Zamówienie</a>
+                  <button type="button" data-remove-product="${escapeHtml(product.id)}">Usuń</button>
+                </div>
+              </div>
+            </article>
+          `).join("");
+        };
+
+        imageInput.addEventListener("change", async () => {
+          const dataUrl = await window.ARIA_SHOP_STORAGE.fileToDataUrl(imageInput.files[0]);
+          if (dataUrl) {
+            preview.src = dataUrl;
+          }
+        });
+
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
+          const formData = new FormData(form);
+          const name = String(formData.get("name") || "").trim();
+          const id = window.ARIA_SHOP_STORAGE.slugify(formData.get("id") || name);
+          const uploadedImage = await window.ARIA_SHOP_STORAGE.fileToDataUrl(imageInput.files[0]);
+          const cover = uploadedImage || "assets/gallery-1.jpeg";
+
+          const product = {
+            id,
+            name,
+            price: Number(formData.get("price") || 0),
+            size: String(formData.get("size") || "").trim(),
+            status: String(formData.get("status") || "available"),
+            category: String(formData.get("category") || "Nowości").trim() || "Nowości",
+            cover,
+            gallery: [cover],
+            description: String(formData.get("description") || "").trim() || "Produkt dodany testowo w panelu Vercel.",
+            dimensions: String(formData.get("dimensions") || "").trim() || "do uzupełnienia",
+            material: String(formData.get("material") || "").trim() || "do uzupełnienia",
+            note: "Produkt dodany testowo. Zapisany tylko w tej przeglądarce."
+          };
+
+          window.ARIA_SHOP_STORAGE.saveProduct(product);
+          form.reset();
+          preview.src = "assets/gallery-1.jpeg";
+          renderList();
+          showMessage("Produkt zapisany testowo. Możesz go zobaczyć w sklepie albo na karcie produktu.");
+        });
+
+        list.addEventListener("click", (event) => {
+          const button = event.target.closest("[data-remove-product]");
+          if (!button) return;
+          window.ARIA_SHOP_STORAGE.removeProduct(button.dataset.removeProduct);
+          renderList();
+          showMessage("Produkt testowy został usunięty z tej przeglądarki.");
+        });
+
+        renderList();
+      })();
+    </script>
+    <script src="assets/typography.js?v=1"></script>
+  </body>
+</html>

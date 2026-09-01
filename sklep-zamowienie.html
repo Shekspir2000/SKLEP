@@ -109,9 +109,10 @@
     </main>
 
     <script src="assets/shop-products.js?v=1"></script>
+    <script src="assets/shop-storage.js?v=1"></script>
     <script>
       (() => {
-        const products = window.ARIA_SHOP_PRODUCTS || [];
+        const products = window.ARIA_SHOP_STORAGE?.allProducts() || window.ARIA_SHOP_PRODUCTS || [];
         const params = new URLSearchParams(window.location.search);
         const product = products.find((item) => item.id === params.get("id")) || products.find((item) => item.status === "available") || products[0];
         const format = (value) => `${Number(value).toLocaleString("pl-PL")} zł`;
