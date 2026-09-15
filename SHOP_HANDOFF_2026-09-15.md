@@ -37,6 +37,8 @@ Stare pliki PHP pozostawiono jako szkic z poprzedniej wersji. Nowy testowy check
 
 ## Weryfikacja
 
+Poprawka mobilnego hero: zdjęcie wypełnia całą sekcję, tekst i przycisk są nałożone na zdjęcie zamiast osobnego bloku powyżej. Kadr przesunięty tak, by zachować widoczną torebkę i czytelny tekst. Sprawdzone szerokości 360, 375, 390, 700, 768 i 1440 px; brak poziomego przewijania, przycisk mieści się w hero. Desktop bez zmian.
+
 Sprawdzone w Chrome: szerokości 360, 375, 390, 768 i 1440 px, w tym ekran 375 x 667. Brak poziomego przewijania i błędów JavaScript. Sprawdzono filtry, sortowanie, wyszukiwanie, ulubione, przód/tył sukienki, galerię, pojedynczą ilość w koszyku, dodawanie zdjęcia w panelu, anulowanie i powodzenie symulacji, kolejny zakup po poprzednim, wygaśnięcie oraz konkurencyjne rezerwacje w dwóch kartach. Dwie równoczesne próby rezerwacji zakończyły się dokładnie jednym sukcesem.
 
 Podgląd lokalny: http://127.0.0.1:8093/sklep.html
