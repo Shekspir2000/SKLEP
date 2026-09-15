@@ -37,6 +37,8 @@ Stare pliki PHP pozostawiono jako szkic z poprzedniej wersji. Nowy testowy check
 
 ## Weryfikacja
 
+Galeria produktu: zmieniono dopasowanie dużego zdjęcia i miniaturek z cover na contain, aby nie przycinać sukienki. Rozmiary kafli zachowane. Sprawdzone oba widoki przy szerokościach 390, 1047 i 1440 px; pełne zdjęcia i brak poziomego przewijania.
+
 Panel administracyjny: przed polami zdjęć dodano wybór 11 przesłanych teł i opcji "Bez tła", podgląd kompozycji oraz przełącznik Przód/Tył. Wybrane cardBackground i cardInset zapisują się w danych produktu; edycja odtwarza wybór, reset usuwa wybór i zdjęcia z formularza. Wzory z białym zewnętrznym marginesem przycięto do grafiki. PNG/WebP zachowują przezroczystość przy zapisie w przeglądarce. Tło działa również z jednym zdjęciem. Testy lokalne 390/1440 px: wszystkie tła, podgląd, kanał alfa, zapis, ponowne otwarcie edycji, zmiana/usunięcie tła, reset, jeden/dwa widoki, brak przewijania poziomego i błędów JS. Test istniejącego kafla 360/390/1440 px: nieruchome tło i przełączanie bez regresji. Nowy plik assets/shop-backgrounds.js zawiera nazwy teł i dopasowanie produktu do ramek. Nadal tylko localStorage, bez wspólnej bazy danych i bez publikacji na LH.
 
 Aktualizacja zdjęć sukienki: plik użytkownika Desktop/sukienka.png rozdzielony w przezroczystej przerwie na przód (lewa część) i tył (prawa część). Nowe pliki floral-dress-front-v2.webp i floral-dress-back-v2.webp zastępują poprzednie zdjęcia z manekinem w danych produktu, galerii i kaflu. Tło i obsługa przełączania bez zmian. Testy 360/390/1440 px zaliczone.
