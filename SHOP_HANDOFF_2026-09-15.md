@@ -37,6 +37,8 @@ Stare pliki PHP pozostawiono jako szkic z poprzedniej wersji. Nowy testowy check
 
 ## Weryfikacja
 
+Dodano jeden kafel demonstracyjny "Sukienka w kwiaty" na początku Nowości. Osobna nieruchoma warstwa tła z przesłanej kratki i dwie przezroczyste warstwy produktu. Kliknięcie/dotyk całego zdjęcia oraz Enter/Spacja przełączają przód i tył; nazwa otwiera szczegóły produktu. Cena 159 zł jest wyłącznie testowa, rozmiar do potwierdzenia. Dodane zasoby: assets/collection/dress-grid.webp, floral-dress-front.webp, floral-dress-back.webp. Testy 360, 390 i 1440 px: identyczne piksele tła przed/po, stały rozmiar kafla, ulubione, link do produktu, brak poziomego przewijania i błędów JS. Pozostałe kafle zachowują dotychczasową obsługę zdjęć.
+
 Poprawka mobilnego hero: zdjęcie wypełnia całą sekcję, tekst i przycisk są nałożone na zdjęcie zamiast osobnego bloku powyżej. Kadr przesunięty tak, by zachować widoczną torebkę i czytelny tekst. Sprawdzone szerokości 360, 375, 390, 700, 768 i 1440 px; brak poziomego przewijania, przycisk mieści się w hero. Desktop bez zmian.
 
 Sprawdzone w Chrome: szerokości 360, 375, 390, 768 i 1440 px, w tym ekran 375 x 667. Brak poziomego przewijania i błędów JavaScript. Sprawdzono filtry, sortowanie, wyszukiwanie, ulubione, przód/tył sukienki, galerię, pojedynczą ilość w koszyku, dodawanie zdjęcia w panelu, anulowanie i powodzenie symulacji, kolejny zakup po poprzednim, wygaśnięcie oraz konkurencyjne rezerwacje w dwóch kartach. Dwie równoczesne próby rezerwacji zakończyły się dokładnie jednym sukcesem.

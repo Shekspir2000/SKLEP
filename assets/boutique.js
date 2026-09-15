@@ -40,6 +40,14 @@
   const params=new URLSearchParams(location.search);
   let renderPage=()=>{};
   if(document.body.dataset.page==='shop'){
+    const turnedProducts=new Set();
+    const cardMedia=p=>{
+      if(p.cardBackground && p.gallery?.length>1){
+        const back=turnedProducts.has(p.id);
+        return `<img class="product-backdrop" src="${photo(p.cardBackground)}" alt="" loading="lazy"><button type="button" class="product-turn" data-turn="${escape(p.id)}" aria-pressed="${back}" aria-label="Pokaż ${back?'przód':'tył'}: ${escape(p.name)}" title="Przód / tył"><img class="product-front" src="${photo(p.gallery[0])}" alt="${escape(p.name)} — przód" aria-hidden="${back}" loading="lazy"><img class="product-back" src="${photo(p.gallery[1])}" alt="${escape(p.name)} — tył" aria-hidden="${!back}" loading="lazy"><span class="turn-indicator" aria-hidden="true">${icon('rotate-3d')}</span></button>`;
+      }
+      return `<a href="${link(p)}"><img src="${photo(p.cover)}" alt="${escape(p.name)}" loading="lazy"></a>${p.gallery?.length>1?`<button class="photo-flip" data-flip="${escape(p.id)}" aria-label="Pokaż tył: ${escape(p.name)}" title="Przód / tył">${icon('rotate-3d')}</button>`:''}`;
+    };
     const categories=[...new Set([...cats,...S.allProducts().map(p=>p.category)])];
     $('#category').innerHTML='<option value="all">Wszystkie kategorie</option>'+categories.map(c=>`<option>${escape(c)}</option>`).join('');
     $('#size').innerHTML='<option value="all">Wszystkie rozmiary</option>'+[...new Set(S.allProducts().map(p=>p.size))].map(s=>`<option>${escape(s)}</option>`).join('');
@@ -56,13 +64,26 @@
       $('#product-count').textContent=`${products.length} / ${S.allProducts().length}`;
       $('#active-search').hidden=!query;$('#active-search').innerHTML=`Wyniki dla: <strong>${escape(query)}</strong> <button class="text-button" id="clear-query">Wyczyść</button>`;
       $('#clear-query').onclick=()=>{query='';renderPage();};
-      $('#product-grid').innerHTML=products.length?products.map(p=>`<article class="product-card"><div class="product-media"><a href="${link(p)}"><img src="${photo(p.cover)}" alt="${escape(p.name)}" loading="lazy"></a><span class="stock-tag ${p.status}">${labels[p.status]}</span><button class="icon-button" data-favorite="${escape(p.id)}" aria-label="Ulubione: ${escape(p.name)}" aria-pressed="${S.favorites().includes(p.id)}">${icon('heart')}</button>${p.gallery?.length>1?`<button class="photo-flip" data-flip="${escape(p.id)}" aria-label="Pokaż tył: ${escape(p.name)}" title="Przód / tył">${icon('rotate-3d')}</button>`:''}</div><div class="product-info"><h3><a href="${link(p)}">${escape(p.name)}</a></h3><p>${escape(p.category)} · Rozmiar ${escape(p.size)}</p><strong>${money(p.price)}</strong></div></article>`).join(''):'<div class="empty"><h2>Jeszcze nie ma tu Twojej rzeczy</h2><p>Zmień filtry i zajrzyj do pozostałych nowości.</p><button class="text-button" id="reset-empty">Pokaż wszystkie rzeczy</button></div>';
+      $('#product-grid').innerHTML=products.length?products.map(p=>`<article class="product-card"><div class="product-media ${p.cardBackground?'product-media-layered':''}">${cardMedia(p)}<span class="stock-tag ${p.status}">${labels[p.status]}</span><button class="icon-button" data-favorite="${escape(p.id)}" aria-label="Ulubione: ${escape(p.name)}" aria-pressed="${S.favorites().includes(p.id)}">${icon('heart')}</button></div><div class="product-info"><h3><a href="${link(p)}">${escape(p.name)}</a></h3><p>${escape(p.category)} · Rozmiar ${escape(p.size)}</p><strong>${money(p.price)}</strong></div></article>`).join(''):'<div class="empty"><h2>Jeszcze nie ma tu Twojej rzeczy</h2><p>Zmień filtry i zajrzyj do pozostałych nowości.</p><button class="text-button" id="reset-empty">Pokaż wszystkie rzeczy</button></div>';
       $('#reset-empty')?.addEventListener('click',clear);icons();
     };
     const clear=()=>{$('#category').value=$('#size').value=$('#status').value='all';query='';renderPage();};
     $('#clear-filters').onclick=clear;
     ['#category','#size','#status','#sort'].forEach(s=>$(s).onchange=renderPage);
-    $('#product-grid').onclick=e=>{const b=e.target.closest('[data-flip]');if(!b)return;const p=S.allProducts().find(p=>p.id===b.dataset.flip);const img=b.closest('.product-media').querySelector('img');const back=b.dataset.back!=='true';b.dataset.back=String(back);img.src=p.gallery[back?1:0];img.alt=p.name+(back?' — tył':' — przód');b.setAttribute('aria-label',`Pokaż ${back?'przód':'tył'}: ${p.name}`);};
+    $('#product-grid').onclick=e=>{
+      const turn=e.target.closest('[data-turn]');
+      if(turn){
+        const p=S.allProducts().find(p=>p.id===turn.dataset.turn);if(!p)return;
+        const back=!turnedProducts.has(p.id);
+        if(back)turnedProducts.add(p.id);else turnedProducts.delete(p.id);
+        turn.setAttribute('aria-pressed',String(back));
+        turn.setAttribute('aria-label',`Pokaż ${back?'przód':'tył'}: ${p.name}`);
+        turn.querySelector('.product-front').setAttribute('aria-hidden',String(back));
+        turn.querySelector('.product-back').setAttribute('aria-hidden',String(!back));
+        return;
+      }
+      const b=e.target.closest('[data-flip]');if(!b)return;const p=S.allProducts().find(p=>p.id===b.dataset.flip);const img=b.closest('.product-media').querySelector('img');const back=b.dataset.back!=='true';b.dataset.back=String(back);img.src=p.gallery[back?1:0];img.alt=p.name+(back?' — tył':' — przód');b.setAttribute('aria-label',`Pokaż ${back?'przód':'tył'}: ${p.name}`);
+    };
   }
   if(document.body.dataset.page==='product'){
     let selected=0;
