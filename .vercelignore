@@ -1,0 +1,8 @@
+api/
+admin/
+data/
+uploads/
+qa/
+prepare-assets.cjs
+check-shop.cjs
+*.md

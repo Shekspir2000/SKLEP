@@ -2,6 +2,12 @@
 
 Osobny pakiet sklepu Ariańska Selection do testowania i dalszych poprawek.
 
+## Aktualizacja 15.09.2026
+
+Nowy wygląd butiku, zdjęcia produktów i hero, koszyk oraz pełna lokalna symulacja zakupu. Opis aktualnego działania i wymagań produkcyjnych: `SHOP_HANDOFF_2026-09-15.md`.
+
+Podgląd: `sklep.html`. Panel: `admin.html`. Dla wspólnego zapisu pomiędzy stronami najlepiej uruchamiać je pod jednym adresem HTTP. Nowy checkout jest wyłącznie testowy i nie wysyła formularza do PHP/P24.
+
 ## Co jest w repozytorium
 
 - `sklep.html` - lista produktów.

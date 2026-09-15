@@ -1,102 +1,16 @@
 <!doctype html>
-<html lang="pl">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nowości - sklep | Ariańska Selection</title>
-    <meta
-      name="description"
-      content="Nowości Ariańska Selection: pojedyncze sztuki z drugiego obiegu, wybrane z czułością do mody i detalu."
-    >
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    >
-    <link rel="stylesheet" href="styles.css?v=81">
-  </head>
-  <body class="commerce-page shop-page">
-    <header class="commerce-topbar">
-      <a class="brand" href="/" aria-label="Ariańska Selection">
-        <img src="assets/logo-menu.png" alt="Ariańska Selection">
-      </a>
-      <div class="site-menu" aria-label="Menu strony">
-        <a href="/warsztaty">Warsztaty</a>
-        <a href="/wynajem">Wynajem przestrzeni</a>
-        <a class="is-active" href="/sklep">Nowości - sklep</a>
-      </div>
-    </header>
-
-    <main class="commerce-shell shop-shell">
-      <section class="shop-hero">
-        <div>
-          <p class="section-kicker">Nowości - sklep</p>
-          <h1>Pojedyncze sztuki z selekcji Ariańska</h1>
-          <p>
-            Ubrania i dodatki z drugiego obiegu, które trafiają tu w małych dropach.
-            Kupujesz jedną konkretną rzecz, a po płatności znika z dostępnych.
-          </p>
-        </div>
-        <aside>
-          <strong>Logistyka 1.0</strong>
-          <span>Odbiór osobisty, paczkomat albo kurier. Etykiety na start ręcznie przez Furgonetkę.</span>
-        </aside>
-      </section>
-
-      <section class="shop-toolbar" aria-label="Filtry sklepu">
-        <button class="is-active" type="button" data-filter="all">Wszystko</button>
-        <button type="button" data-filter="available">Dostępne</button>
-        <button type="button" data-filter="reserved">Zarezerwowane</button>
-        <button type="button" data-filter="sold">Sprzedane</button>
-      </section>
-
-      <section class="shop-grid" data-products-grid aria-label="Produkty"></section>
-    </main>
-
-    <script src="assets/shop-products.js?v=1"></script>
-    <script src="assets/shop-storage.js?v=1"></script>
-    <script>
-      (() => {
-        const products = window.ARIA_SHOP_STORAGE?.allProducts() || window.ARIA_SHOP_PRODUCTS || [];
-        const grid = document.querySelector("[data-products-grid]");
-        const statusLabel = { available: "Dostępne", reserved: "Zarezerwowane", sold: "Sprzedane" };
-        const price = (value) => `${Number(value).toLocaleString("pl-PL")} zł`;
-
-        const render = (filter = "all") => {
-          const visible = products.filter((product) => filter === "all" || product.status === filter);
-          grid.innerHTML = visible.map((product) => `
-            <article class="shop-card status-${product.status}">
-              <a class="shop-card-media" href="produkt.html?id=${encodeURIComponent(product.id)}">
-                <img src="${product.cover}" alt="${product.name}">
-                <span>${statusLabel[product.status] || product.status}</span>
-              </a>
-              <div class="shop-card-body">
-                <p>${product.category} · rozmiar ${product.size}</p>
-                <h2>${product.name}</h2>
-                <div>
-                  <strong>${price(product.price)}</strong>
-                  <a class="shop-card-link" href="produkt.html?id=${encodeURIComponent(product.id)}">Zobacz</a>
-                </div>
-              </div>
-            </article>
-          `).join("");
-          if (!visible.length) {
-            grid.innerHTML = '<p class="shop-empty">Nie ma produktów w tej kategorii.</p>';
-          }
-        };
-
-        document.querySelectorAll("[data-filter]").forEach((button) => {
-          button.addEventListener("click", () => {
-            document.querySelectorAll("[data-filter]").forEach((item) => item.classList.remove("is-active"));
-            button.classList.add("is-active");
-            render(button.dataset.filter);
-          });
-        });
-
-        render();
-      })();
-    </script>
-    <script src="assets/typography.js?v=1"></script>
-  </body>
-</html>
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sklep | Ariańska Selection</title><meta name="description" content="Pojedyncze rzeczy z drugiego obiegu. Odkryj selekcję Ariańskiej."><link rel="stylesheet" href="assets/boutique.css"></head>
+<body data-page="shop"><header id="site-header"></header>
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <img class="hero-image" src="assets/collection/hero.webp" alt="Czerwona torebka, apaszka i biżuteria w butiku Ariańska Selection" fetchpriority="high">
+    <div class="hero-content"><p class="eyebrow">Second hand. Pierwszy wybór.</p><h1 id="hero-title">Ariańska<br>Selection</h1><p class="hero-motto">Jedna rzecz. Jedna historia.<br>Twój styl.</p><p class="hero-description">Starannie wybrane perełki z drugiego obiegu.<br>Każda dostępna tylko w jednym egzemplarzu.</p><a class="button primary" href="#nowosci">Odkryj nowości <i data-lucide="arrow-right"></i></a><p class="hero-footnote">Kraków · moda · rzeczy z historią</p></div>
+  </section>
+  <section class="catalog section-wrap" id="nowosci" aria-labelledby="catalog-heading">
+    <div class="section-heading"><div><p class="eyebrow">Z naszej selekcji</p><h2 id="catalog-heading">Nowości</h2></div><div class="catalog-tools"><span id="product-count"></span><button class="button outline" id="filter-toggle" aria-expanded="false" aria-controls="filters"><i data-lucide="sliders-horizontal"></i> Filtry</button><label class="sort"><i data-lucide="arrow-down-up"></i><span class="sr-only">Sortowanie</span><select id="sort"><option value="new">Najnowsze</option><option value="low">Cena rosnąco</option><option value="high">Cena malejąco</option><option value="name">Nazwa A–Z</option></select></label></div></div>
+    <div class="filters" id="filters" hidden><label>Kategoria<select id="category"><option value="all">Wszystkie kategorie</option></select></label><label>Rozmiar<select id="size"><option value="all">Wszystkie rozmiary</option></select></label><label>Dostępność<select id="status"><option value="all">Wszystkie</option><option value="available">Dostępne</option><option value="reserved">Zarezerwowane</option><option value="sold">Sprzedane</option></select></label><button class="text-button" id="clear-filters">Wyczyść filtry</button></div>
+    <div class="active-search" id="active-search" hidden></div><div class="product-grid" id="product-grid"></div>
+  </section>
+  <section class="story" id="historia"><div class="story-photo"><img src="assets/collection/story.webp" alt="Spotkanie przy wspólnym stole w Ariańskiej" loading="lazy"></div><div class="story-copy"><p class="eyebrow">Rzeczy z historią. Ludzie z pasją.</p><h2>Dobry styl ma<br>ciąg dalszy</h2><p>Ariańska Selection to selekcjonowany second hand w Krakowie. Miejsce pełne perełek z drugiego obiegu, które zasługują na kolejną historię.</p><p>My wybieramy rzeczy z charakterem.<br>Ty nadajesz im swój.</p><a class="text-link" href="https://arianskaselection.pl/o-nas">Poznaj Ariańską <i data-lucide="arrow-up-right"></i></a></div></section>
+  <section class="service-strip section-wrap"><p><i data-lucide="gem"></i>Każda rzecz jest jedyna</p><p><i data-lucide="package"></i>Wysyłka lub odbiór w butiku</p><p><i data-lucide="map-pin"></i>Ariańska 18/1, Kraków</p></section>
+</main><footer id="site-footer"></footer><script src="assets/lucide.min.js"></script><script src="assets/shop-products.js"></script><script src="assets/shop-storage.js"></script><script src="assets/boutique.js"></script></body></html>

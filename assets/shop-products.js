@@ -1,44 +1,6 @@
 window.ARIA_SHOP_PRODUCTS = [
-  {
-    id: "marynarka-rose-vintage",
-    name: "Marynarka vintage rose",
-    price: 189,
-    size: "M",
-    status: "available",
-    category: "Marynarki",
-    cover: "assets/gallery-1.jpeg",
-    gallery: ["assets/gallery-1.jpeg", "assets/warsztaty-grupa.jpeg"],
-    description: "Jedyna sztuka z selekcji Ariańska. Miękka linia ramion, piękny kolor i charakter do codziennych stylizacji.",
-    dimensions: "szer. pod pachami 52 cm, dł. 72 cm",
-    material: "wełna z domieszką",
-    note: "Produkt przykładowy do podmiany w panelu admina."
-  },
-  {
-    id: "sukienka-kremowa",
-    name: "Sukienka kremowa z charakterem",
-    price: 159,
-    size: "S/M",
-    status: "available",
-    category: "Sukienki",
-    cover: "assets/gallery-2.jpeg",
-    gallery: ["assets/gallery-2.jpeg", "assets/gallery-3.jpeg"],
-    description: "Lekka sukienka do sesji, spotkania albo letniego wieczoru. Wybrana z myślą o subtelnym, kobiecym stylu.",
-    dimensions: "talia 36 cm, dł. 118 cm",
-    material: "wiskoza",
-    note: "Produkt przykładowy do podmiany w panelu admina."
-  },
-  {
-    id: "apaszka-second-choice",
-    name: "Apaszka Second Choice",
-    price: 79,
-    size: "One size",
-    status: "reserved",
-    category: "Dodatki",
-    cover: "assets/warsztaty-wino.jpeg",
-    gallery: ["assets/warsztaty-wino.jpeg", "assets/hero.jpg"],
-    description: "Kolorowy dodatek z drugiego obiegu. Mała rzecz, która potrafi zmienić całą stylizację.",
-    dimensions: "68 x 68 cm",
-    material: "jedwabna mieszanka",
-    note: "Produkt przykładowy do podmiany w panelu admina."
-  }
+  {id:'blekitna-kurtka',name:'Błękitna kurtka z połyskiem',category:'Kurtki i płaszcze',price:249,size:'M',status:'available',cover:'assets/collection/blue-jacket.webp',gallery:['assets/collection/blue-jacket.webp'],description:'Błękit, połysk i swobodna forma. Kurtka, która nadaje charakter nawet najprostszej stylizacji.',material:'Do uzupełnienia',dimensions:'Do uzupełnienia',note:'Dane i cena testowe. Przed sprzedażą potwierdź rozmiar, skład i stan.',createdAt:4},
+  {id:'rozowy-sweter',name:'Sweter w różowy deseń',category:'Swetry',price:189,size:'M',status:'available',cover:'assets/collection/pink-knit.webp',gallery:['assets/collection/pink-knit.webp'],description:'Wyrazisty róż spotyka klasyczną czerń. Miękka forma i wzór, obok którego trudno przejść obojętnie.',material:'Do uzupełnienia',dimensions:'Do uzupełnienia',note:'Dane i cena testowe. Oferta dotyczy swetra, bez spódnicy.',createdAt:3},
+  {id:'czarna-ramoneska',name:'Klasyczna czarna ramoneska',category:'Kurtki i płaszcze',price:329,size:'S',status:'available',cover:'assets/collection/black-jacket.webp',gallery:['assets/collection/black-jacket.webp'],description:'Asymetryczne zapięcie, srebrne detale i ponadczasowa linia. Rzecz, która zostaje w szafie na dłużej.',material:'Do uzupełnienia',dimensions:'Do uzupełnienia',note:'Dane i cena testowe. Oferta dotyczy kurtki, bez spódnicy.',createdAt:2},
+  {id:'rozowa-sukienka',name:'Pudrowa sukienka z fakturą',category:'Sukienki',price:159,size:'S/M',status:'available',cover:'assets/collection/pink-dress.webp',gallery:['assets/collection/pink-dress.webp','assets/collection/pink-dress-back.webp'],description:'Delikatny róż, drobna faktura i luźny krój. Subtelny akcent na co dzień i na wyjątkowe spotkania.',material:'Do uzupełnienia',dimensions:'Do uzupełnienia',note:'Dane i cena testowe. Przed sprzedażą potwierdź rozmiar, skład i stan.',createdAt:1}
 ];
