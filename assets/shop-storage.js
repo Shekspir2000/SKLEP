@@ -85,7 +85,7 @@
     if(!file){resolve('');return;}
     if(!/^image\/(jpeg|png|webp)$/.test(file.type)){reject(new Error('Wybierz zdjęcie JPG, PNG lub WebP.'));return;}
     const url=URL.createObjectURL(file), img=new Image();
-    img.onload=()=>{try{const scale=Math.min(1,1000/img.width);const canvas=document.createElement('canvas');canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL('image/jpeg',.84));}catch(error){reject(error);}finally{URL.revokeObjectURL(url);}};
+    img.onload=()=>{try{const scale=Math.min(1,1000/Math.max(img.width,img.height));const canvas=document.createElement('canvas');canvas.width=Math.round(img.width*scale);canvas.height=Math.round(img.height*scale);canvas.getContext('2d').drawImage(img,0,0,canvas.width,canvas.height);resolve(canvas.toDataURL(file.type==='image/jpeg'?'image/jpeg':'image/webp',.9));}catch(error){reject(error);}finally{URL.revokeObjectURL(url);}};
     img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('Nie udało się odczytać zdjęcia.'));};img.src=url;
   });
   window.ARIA_SHOP_STORAGE={allProducts,rawProducts,customProducts,saveProduct,removeProduct,slugify,fileToDataUrl,cart,setCart,addToCart,favorites,toggleFavorite,reserve,order,finish,resetDemo};

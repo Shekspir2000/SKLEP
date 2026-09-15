@@ -42,6 +42,7 @@
   if(document.body.dataset.page==='shop'){
     const turnedProducts=new Set();
     const cardMedia=p=>{
+      if(p.cardBackground && !(p.gallery?.length>1))return `<img class="product-backdrop" src="${photo(p.cardBackground)}" alt="" loading="lazy"><a class="product-layer-single" href="${link(p)}"><img src="${photo(p.cover)}" alt="${escape(p.name)}" loading="lazy"></a>`;
       if(p.cardBackground && p.gallery?.length>1){
         const back=turnedProducts.has(p.id);
         return `<img class="product-backdrop" src="${photo(p.cardBackground)}" alt="" loading="lazy"><button type="button" class="product-turn" data-turn="${escape(p.id)}" aria-pressed="${back}" aria-label="Pokaż ${back?'przód':'tył'}: ${escape(p.name)}" title="Przód / tył"><img class="product-front" src="${photo(p.gallery[0])}" alt="${escape(p.name)} — przód" aria-hidden="${back}" loading="lazy"><img class="product-back" src="${photo(p.gallery[1])}" alt="${escape(p.name)} — tył" aria-hidden="${!back}" loading="lazy"><span class="turn-indicator" aria-hidden="true">${icon('rotate-3d')}</span></button>`;
@@ -64,7 +65,7 @@
       $('#product-count').textContent=`${products.length} / ${S.allProducts().length}`;
       $('#active-search').hidden=!query;$('#active-search').innerHTML=`Wyniki dla: <strong>${escape(query)}</strong> <button class="text-button" id="clear-query">Wyczyść</button>`;
       $('#clear-query').onclick=()=>{query='';renderPage();};
-      $('#product-grid').innerHTML=products.length?products.map(p=>`<article class="product-card"><div class="product-media ${p.cardBackground?'product-media-layered':''}">${cardMedia(p)}<span class="stock-tag ${p.status}">${labels[p.status]}</span><button class="icon-button" data-favorite="${escape(p.id)}" aria-label="Ulubione: ${escape(p.name)}" aria-pressed="${S.favorites().includes(p.id)}">${icon('heart')}</button></div><div class="product-info"><h3><a href="${link(p)}">${escape(p.name)}</a></h3><p>${escape(p.category)} · Rozmiar ${escape(p.size)}</p><strong>${money(p.price)}</strong></div></article>`).join(''):'<div class="empty"><h2>Jeszcze nie ma tu Twojej rzeczy</h2><p>Zmień filtry i zajrzyj do pozostałych nowości.</p><button class="text-button" id="reset-empty">Pokaż wszystkie rzeczy</button></div>';
+      $('#product-grid').innerHTML=products.length?products.map(p=>`<article class="product-card"><div class="product-media ${p.cardBackground?'product-media-layered':''}" style="--product-inset:${Number.isFinite(p.cardInset)?Math.max(0,Math.min(35,p.cardInset)):8}%">${cardMedia(p)}<span class="stock-tag ${p.status}">${labels[p.status]}</span><button class="icon-button" data-favorite="${escape(p.id)}" aria-label="Ulubione: ${escape(p.name)}" aria-pressed="${S.favorites().includes(p.id)}">${icon('heart')}</button></div><div class="product-info"><h3><a href="${link(p)}">${escape(p.name)}</a></h3><p>${escape(p.category)} · Rozmiar ${escape(p.size)}</p><strong>${money(p.price)}</strong></div></article>`).join(''):'<div class="empty"><h2>Jeszcze nie ma tu Twojej rzeczy</h2><p>Zmień filtry i zajrzyj do pozostałych nowości.</p><button class="text-button" id="reset-empty">Pokaż wszystkie rzeczy</button></div>';
       $('#reset-empty')?.addEventListener('click',clear);icons();
     };
     const clear=()=>{$('#category').value=$('#size').value=$('#status').value='all';query='';renderPage();};
